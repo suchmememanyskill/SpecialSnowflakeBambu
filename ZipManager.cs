@@ -37,7 +37,7 @@ public class ZipManager
 
         using (var zip = new ZipArchive(stream, ZipArchiveMode.Update, leaveOpen: true))
         {
-            if (!zip.Entries.Any(x => x.FullName.StartsWith("3D/Objects")) && !zip.Entries.Any(x => x.FullName == "3D/3dmodel.model"))
+            if (!zip.Entries.Any(x => x.FullName.StartsWith("3D/Objects")) || !zip.Entries.Any(x => x.FullName == "3D/3dmodel.model"))
                 throw new Exception("Not a Bambu 3mf");
             
             var model = zip.Entries.First(x => x.FullName == "3D/3dmodel.model");
