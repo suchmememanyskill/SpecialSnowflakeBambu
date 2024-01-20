@@ -1,0 +1,32 @@
+name: Build SpecialSnowflakeBambu 
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Compile AOT build
+      run: |
+        dotnet publish SpecialSnowflakeBambu.csproj -r win-x64 -c Release -o out
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: SpecialSnowflakeBambu Windows
+        path: |
+          out

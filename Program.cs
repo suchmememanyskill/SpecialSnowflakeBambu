@@ -4,10 +4,12 @@ using SpecialSnowflakeBambu;
 var a = new ZipManager();
 if (args.Length >= 1)
 {
-    a.NewFile(args[0]);
+    foreach (var s in args)
+    {
+        a.ConvertInMemory(s);
+    }
 }
 else
 {
-    a.NewFile("test.3mf");
+    Console.WriteLine("Please provide a file");
 }
-
